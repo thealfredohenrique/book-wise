@@ -12,4 +12,8 @@ export const globalStyles = globalCss({
     backgroundColor: "$gray-800",
     color: "$gray-100",
   },
+
+  "@media screen and (max-width: 1366px)": {
+    fontSize: "94%",
+  },
 });
