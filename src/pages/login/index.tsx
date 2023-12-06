@@ -53,7 +53,7 @@ export default function Login() {
             />
             Entrar com Google
           </LoginAuthButton>
-          <LoginAuthButton>
+          <LoginAuthButton onClick={() => signIn("github")}>
             <Image
               src={githubIcon}
               alt=""
