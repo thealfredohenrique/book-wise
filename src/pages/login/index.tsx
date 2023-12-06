@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 import heroImage from "@/assets/hero.png";
 import logo from "@/assets/logo.svg";
 import githubIcon from "@/assets/github-icon.svg";
@@ -42,7 +43,7 @@ export default function Login() {
         </LoginAuthWelcome>
 
         <LoginAuthOptions>
-          <LoginAuthButton>
+          <LoginAuthButton onClick={() => signIn("google")}>
             <Image
               src={googleIcon}
               alt=""
