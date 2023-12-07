@@ -1,5 +1,9 @@
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import Image from "next/image";
+import { getServerSession } from "next-auth";
 import { signIn } from "next-auth/react";
+import { authOptions } from "../api/auth/[...nextauth].api";
 import heroImage from "@/assets/hero.png";
 import logo from "@/assets/logo.svg";
 import githubIcon from "@/assets/github-icon.svg";
@@ -15,6 +19,17 @@ import {
 } from "./styles";
 
 export default function Login() {
+  const router = useRouter();
+
+  async function handleNavigateToHome() {
+    await router.push("/home");
+  }
+
+  async function handleSignIn(provider: "google" | "github") {
+    await signIn(provider);
+    void handleNavigateToHome();
+  }
+
   return (
     <LoginWrapper>
       <LoginHero>
@@ -43,7 +58,7 @@ export default function Login() {
         </LoginAuthWelcome>
 
         <LoginAuthOptions>
-          <LoginAuthButton onClick={() => signIn("google")}>
+          <LoginAuthButton onClick={() => handleSignIn("google")}>
             <Image
               src={googleIcon}
               alt=""
@@ -53,7 +68,7 @@ export default function Login() {
             />
             Entrar com Google
           </LoginAuthButton>
-          <LoginAuthButton onClick={() => signIn("github")}>
+          <LoginAuthButton onClick={() => handleSignIn("github")}>
             <Image
               src={githubIcon}
               alt=""
@@ -63,7 +78,7 @@ export default function Login() {
             />
             Entrar com GitHub
           </LoginAuthButton>
-          <LoginAuthButton>
+          <LoginAuthButton onClick={handleNavigateToHome}>
             <Image
               src={rocketIcon}
               alt=""
@@ -78,3 +93,22 @@ export default function Login() {
     </LoginWrapper>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/home",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+};
