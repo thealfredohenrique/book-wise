@@ -15,7 +15,7 @@ export const LoginHero = styled("div", {
     width: "fit-content",
     objectFit: "contain",
     objectPosition: "left",
-    borderRadius: "$md",
+    borderRadius: "$lg",
   },
 
   "img:last-child": {
@@ -71,7 +71,7 @@ export const LoginAuthButton = styled("button", {
   padding: "$5 $6",
   backgroundColor: "$gray-600",
   color: "$gray-200",
-  borderRadius: "$sm",
+  borderRadius: "$md",
   fontSize: "$md",
   fontWeight: "bold",
   lineHeight: "$base",

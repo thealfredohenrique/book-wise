@@ -50,8 +50,12 @@ export const { getCssText, globalCss, styled } = createStitches({
       "gradient-vertical": "linear-gradient(180deg, #7FD1CC 0%, #9694F5 100%)",
     },
     radii: {
-      sm: "8px",
-      md: "10px",
+      xs: "4px",
+      sm: "6px",
+      md: "8px",
+      lg: "10px",
+      xl: "12px",
+      full: "99999px",
     },
   },
 });
