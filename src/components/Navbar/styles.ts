@@ -1,6 +1,6 @@
 import { styled } from "@/lib/stitches";
 
-export const SidebarEllipse = styled("div", {
+export const NavbarEllipse = styled("div", {
   position: "absolute",
   borderRadius: "$full",
   opacity: "0.8",
@@ -29,7 +29,7 @@ export const SidebarEllipse = styled("div", {
   },
 });
 
-export const SidebarWrapper = styled("nav", {
+export const NavbarWrapper = styled("nav", {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -41,18 +41,18 @@ export const SidebarWrapper = styled("nav", {
   overflow: "hidden",
   position: "relative",
 
-  [`*:not(${SidebarEllipse})`]: {
+  [`*:not(${NavbarEllipse})`]: {
     zIndex: 1,
   },
 });
 
-export const SidebarMenu = styled("ul", {
+export const NavbarMenu = styled("ul", {
   display: "flex",
   flexDirection: "column",
   gap: "$4",
 });
 
-export const SidebarMenuItem = styled("li", {
+export const NavbarMenuItem = styled("li", {
   listStyle: "none",
   position: "relative",
 
@@ -107,7 +107,7 @@ export const SidebarMenuItem = styled("li", {
   },
 });
 
-export const SidebarFooter = styled("footer", {
+export const NavbarFooter = styled("footer", {
   marginTop: "auto",
 
   a: {

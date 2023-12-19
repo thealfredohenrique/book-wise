@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Sidebar from "../Sidebar";
+import Navbar from "../Navbar";
 import { LayoutWrapper } from "./styles";
 
 interface LayoutProps {
@@ -9,7 +9,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <LayoutWrapper>
-      <Sidebar />
+      <Navbar />
       {children}
     </LayoutWrapper>
   );

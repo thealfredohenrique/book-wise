@@ -4,18 +4,18 @@ import Link from "next/link";
 import { Binoculars, ChartLineUp, SignIn } from "@phosphor-icons/react";
 import logo from "@/assets/logo.svg";
 import {
-  SidebarEllipse,
-  SidebarFooter,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarWrapper,
+  NavbarEllipse,
+  NavbarFooter,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarWrapper,
 } from "./styles";
 
-export default function Sidebar() {
+export default function Navbar() {
   const router = useRouter();
 
   return (
-    <SidebarWrapper>
+    <NavbarWrapper>
       <Image
         src={logo}
         alt="BookWise logo"
@@ -25,44 +25,44 @@ export default function Sidebar() {
         priority
       />
 
-      <SidebarMenu>
-        <SidebarMenuItem isSelected={router.route === "/home"}>
+      <NavbarMenu>
+        <NavbarMenuItem isSelected={router.route === "/home"}>
           <Link href="/home">
             <ChartLineUp size={24} />
             Início
           </Link>
-        </SidebarMenuItem>
-        <SidebarMenuItem isSelected={router.route === "/explore"}>
+        </NavbarMenuItem>
+        <NavbarMenuItem isSelected={router.route === "/explore"}>
           <Link href="/explore">
             <Binoculars size={24} />
             Explorar
           </Link>
-        </SidebarMenuItem>
-      </SidebarMenu>
+        </NavbarMenuItem>
+      </NavbarMenu>
 
-      <SidebarFooter>
+      <NavbarFooter>
         <Link href="/">
           Fazer login
           <SignIn size={20} weight="bold" />
         </Link>
-      </SidebarFooter>
+      </NavbarFooter>
 
-      <SidebarBackground />
-    </SidebarWrapper>
+      <NavbarBackground />
+    </NavbarWrapper>
   );
 }
 
-function SidebarBackground() {
+function NavbarBackground() {
   return (
     <>
-      <SidebarEllipse color="purple" size="lg" css={{ left: 64, top: 265 }} />
-      <SidebarEllipse
+      <NavbarEllipse color="purple" size="lg" css={{ left: 64, top: 265 }} />
+      <NavbarEllipse
         color="green"
         size="lg"
         css={{ left: -106, bottom: -48 }}
       />
-      <SidebarEllipse color="purple" size="sm" css={{ left: 106, top: -120 }} />
-      <SidebarEllipse color="green" size="sm" css={{ left: -90, top: -120 }} />
+      <NavbarEllipse color="purple" size="sm" css={{ left: 106, top: -120 }} />
+      <NavbarEllipse color="green" size="sm" css={{ left: -90, top: -120 }} />
     </>
   );
 }
