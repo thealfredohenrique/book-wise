@@ -17,6 +17,15 @@
     "jsx-a11y"
   ],
   "rules": {
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "{}": false
+        }
+      }
+    ],
     "jsx-a11y/alt-text": [
       "warn",
       {
