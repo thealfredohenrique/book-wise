@@ -36,7 +36,7 @@ export const NavbarWrapper = styled("nav", {
   gap: "$10",
   padding: "$10 0",
   height: "100%",
-  width: 232,
+  minWidth: 232,
   borderRadius: "$xl",
   overflow: "hidden",
   position: "relative",
