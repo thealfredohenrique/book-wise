@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import { Nunito } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import { globalStyles } from "@/styles/global";
+import "../lib/dayjs";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;

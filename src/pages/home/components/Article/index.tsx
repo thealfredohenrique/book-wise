@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Star } from "@phosphor-icons/react";
+import dayjs from "dayjs";
 import {
   ArticleAvatar,
   ArticleContent,
@@ -12,51 +13,66 @@ import {
   ArticleWrapper,
 } from "./styles";
 
-export default function Article() {
+interface ArticleProps {
+  rate: number;
+  description: string;
+  createdAt: string;
+  book: {
+    title: string;
+    author: string;
+    coverURL: string;
+  };
+  user: {
+    name: string;
+    avatarURL: string;
+  };
+}
+
+export default function Article({
+  rate,
+  description,
+  createdAt,
+  book,
+  user,
+}: ArticleProps) {
   return (
     <ArticleWrapper>
       <ArticleHeader>
         <ArticleAvatar>
           <Image
-            src="https://github.com/thealfredohenrique.png"
-            alt=""
+            src={user.avatarURL}
+            alt="Reviewer profile picture"
             height={40}
             width={40}
           />
         </ArticleAvatar>
 
         <ArticleInfo>
-          <strong>Alfredo Henrique</strong>
-          <span>Hoje</span>
+          <strong>{user.name}</strong>
+          <span>{dayjs(createdAt).fromNow()}</span>
         </ArticleInfo>
 
         <ArticleRating>
-          <Star size={16} weight="fill" />
-          <Star size={16} weight="fill" />
-          <Star size={16} weight="fill" />
-          <Star size={16} weight="fill" />
-          <Star size={16} />
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} size={16} weight={i < rate ? "fill" : "regular"} />
+          ))}
         </ArticleRating>
       </ArticleHeader>
 
       <ArticleContent>
         <Image
-          src="/images/books/o-guia-do-mochileiro-das-galaxias.png"
-          alt=""
+          src={book.coverURL}
+          alt="Book cover picture"
           height={152}
           width={108}
         />
         <ArticleContentData>
           <ArticleContentHeader>
-            <strong>O guia do mochileiro das galáxias</strong>
-            <span>Douglas Adams</span>
+            <strong>{book.title}</strong>
+            <span>{book.author}</span>
           </ArticleContentHeader>
 
-          <ArticleContentDescription>
-            Nec tempor nunc in egestas. Euismod nisi eleifend at et in sagittis.
-            Penatibus id vestibulum imperdiet a at imperdiet lectus leo. Sit
-            porta eget nec vitae sit vulputate eget
-          </ArticleContentDescription>
+          <ArticleContentDescription>{description}</ArticleContentDescription>
         </ArticleContentData>
       </ArticleContent>
     </ArticleWrapper>

@@ -10,7 +10,12 @@ import {
 export default function BookCard() {
   return (
     <BookCardWrapper>
-      <Image src="/images/books/Book.png" alt="" height={94} width={64} />
+      <Image
+        src="/images/books/a-revolucao-dos-bixos.png"
+        alt=""
+        height={94}
+        width={64}
+      />
 
       <BookCardDetails>
         <BookCardTitle>

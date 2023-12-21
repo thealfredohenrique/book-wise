@@ -1,7 +1,9 @@
 import type { ReactElement } from "react";
+import type { GetServerSideProps } from "next";
 import Link from "next/link";
 import { CaretRight, ChartLineUp } from "@phosphor-icons/react";
 import type { NextPageWithLayout } from "../_app.page";
+import { api } from "@/lib/axios";
 import Layout from "@/components/Layout";
 import Article from "./components/Article";
 import BookCard from "./components/BookCard";
@@ -14,7 +16,25 @@ import {
   HomeWrapper,
 } from "./styles";
 
-const Home: NextPageWithLayout = () => {
+interface HomeProps {
+  ratings: {
+    id: string;
+    rate: number;
+    description: string;
+    createdAt: string;
+    book: {
+      title: string;
+      author: string;
+      coverURL: string;
+    };
+    user: {
+      name: string;
+      avatarURL: string;
+    };
+  }[];
+}
+
+const Home: NextPageWithLayout<HomeProps> = ({ ratings }) => {
   return (
     <HomeWrapper>
       <HomeMain>
@@ -26,9 +46,16 @@ const Home: NextPageWithLayout = () => {
         <HomeContent>
           <p>Avaliações mais recentes</p>
 
-          <Article />
-          <Article />
-          <Article />
+          {ratings.map((rating) => (
+            <Article
+              key={rating.id}
+              rate={rating.rate}
+              description={rating.description}
+              createdAt={rating.createdAt}
+              book={rating.book}
+              user={rating.user}
+            />
+          ))}
         </HomeContent>
       </HomeMain>
 
@@ -52,6 +79,16 @@ const Home: NextPageWithLayout = () => {
 
 Home.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await api.get("/ratings");
+
+  return {
+    props: {
+      ratings: response.data,
+    },
+  };
 };
 
 export default Home;
