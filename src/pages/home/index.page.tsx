@@ -32,9 +32,16 @@ interface HomeProps {
       avatarURL: string;
     };
   }[];
+  mostPopularBooks: {
+    id: string;
+    title: string;
+    author: string;
+    coverURL: string;
+    rate: number;
+  }[];
 }
 
-const Home: NextPageWithLayout<HomeProps> = ({ ratings }) => {
+const Home: NextPageWithLayout<HomeProps> = ({ ratings, mostPopularBooks }) => {
   return (
     <HomeWrapper>
       <HomeMain>
@@ -69,9 +76,15 @@ const Home: NextPageWithLayout<HomeProps> = ({ ratings }) => {
           </Link>
         </HomeAsideHeader>
 
-        <BookCard />
-        <BookCard />
-        <BookCard />
+        {mostPopularBooks.map((book) => (
+          <BookCard
+            key={book.id}
+            title={book.title}
+            author={book.author}
+            coverURL={book.coverURL}
+            rate={book.rate}
+          />
+        ))}
       </HomeAside>
     </HomeWrapper>
   );
@@ -82,11 +95,15 @@ Home.getLayout = function getLayout(page: ReactElement) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await api.get("/ratings");
+  const [ratings, mostPopularBooks] = await Promise.all([
+    api.get("/ratings"),
+    api.get("/books/most-popular"),
+  ]);
 
   return {
     props: {
-      ratings: response.data,
+      ratings: ratings.data,
+      mostPopularBooks: mostPopularBooks.data,
     },
   };
 };

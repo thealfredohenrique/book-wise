@@ -18,6 +18,7 @@ export default async function handler(
   });
 
   const response = ratings.map((rating) => ({
+    id: rating.id,
     rate: rating.rate,
     description: rating.description,
     createdAt: rating.created_at,
