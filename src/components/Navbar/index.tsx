@@ -1,18 +1,36 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { Binoculars, ChartLineUp, SignIn } from "@phosphor-icons/react";
+import { signOut, useSession } from "next-auth/react";
+import {
+  Binoculars,
+  ChartLineUp,
+  SignIn,
+  SignOut,
+} from "@phosphor-icons/react";
 import logo from "@/assets/logo.svg";
 import {
+  NavbarAvatar,
   NavbarEllipse,
   NavbarFooter,
   NavbarMenu,
   NavbarMenuItem,
+  NavbarSignInOut,
   NavbarWrapper,
 } from "./styles";
 
 export default function Navbar() {
   const router = useRouter();
+  const session = useSession();
+  const isSignedIn = session.status === "authenticated";
+
+  async function handleSignOut() {
+    await signOut();
+  }
+
+  async function handleSignIn() {
+    await router.push("/");
+  }
 
   return (
     <NavbarWrapper>
@@ -41,10 +59,25 @@ export default function Navbar() {
       </NavbarMenu>
 
       <NavbarFooter>
-        <Link href="/">
-          Fazer login
-          <SignIn size={20} weight="bold" />
-        </Link>
+        {isSignedIn ? (
+          <NavbarSignInOut onClick={handleSignOut}>
+            <NavbarAvatar>
+              <Image
+                src={session.data.user.avatar_url}
+                alt="Profile picture"
+                width={32}
+                height={32}
+              />
+            </NavbarAvatar>
+            {session.data.user.name.split(" ")[0]}
+            <SignOut size={20} weight="bold" color="#F75A68" />
+          </NavbarSignInOut>
+        ) : (
+          <NavbarSignInOut onClick={handleSignIn}>
+            Fazer login
+            <SignIn size={20} weight="bold" color="#F8F9FC" />
+          </NavbarSignInOut>
+        )}
       </NavbarFooter>
 
       <NavbarBackground />

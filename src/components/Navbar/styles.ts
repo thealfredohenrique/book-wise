@@ -109,24 +109,34 @@ export const NavbarMenuItem = styled("li", {
 
 export const NavbarFooter = styled("footer", {
   marginTop: "auto",
+});
 
-  a: {
-    display: "flex",
-    alignItems: "center",
-    gap: "$3",
-    color: "$gray-200",
-    fontWeight: "$bold",
-    lineHeight: "$base",
-    textDecoration: "none",
-  },
-
-  svg: {
-    fill: "$green-100",
-  },
+export const NavbarSignInOut = styled("button", {
+  all: "unset",
+  cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  gap: "$3",
+  color: "$gray-200",
+  fontWeight: "$bold",
+  lineHeight: "$base",
+  textDecoration: "none",
 
   "&:hover": {
-    a: {
-      textDecoration: "underline",
-    },
+    textDecoration: "underline",
+  },
+});
+
+export const NavbarAvatar = styled("div", {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: 34,
+  height: 34,
+  background: "$gradient-vertical",
+  borderRadius: "$full",
+
+  img: {
+    borderRadius: "$full",
   },
 });

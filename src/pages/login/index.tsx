@@ -27,7 +27,6 @@ export default function Login() {
 
   async function handleSignIn(provider: "google" | "github") {
     await signIn(provider);
-    void handleNavigateToHome();
   }
 
   return (
