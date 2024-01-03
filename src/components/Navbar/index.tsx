@@ -7,6 +7,7 @@ import {
   ChartLineUp,
   SignIn,
   SignOut,
+  User,
 } from "@phosphor-icons/react";
 import logo from "@/assets/logo.svg";
 import {
@@ -56,6 +57,14 @@ export default function Navbar() {
             Explorar
           </Link>
         </NavbarMenuItem>
+        {isSignedIn && (
+          <NavbarMenuItem isSelected={router.route === "/profile"}>
+            <Link href="/profile">
+              <User size={24} />
+              Perfil
+            </Link>
+          </NavbarMenuItem>
+        )}
       </NavbarMenu>
 
       <NavbarFooter>
