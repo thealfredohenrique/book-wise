@@ -81,7 +81,6 @@ export const NavbarMenuItem = styled("li", {
         },
         a: {
           color: "$gray-100",
-          fontWeight: "$bold",
         },
         "&::before": {
           content: "",

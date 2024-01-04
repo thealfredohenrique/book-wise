@@ -2,6 +2,9 @@ import { styled } from "@/lib/stitches";
 
 export const ExploreWrapper = styled("div", {
   flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  gap: "$10",
   padding: "$10 $10 0",
 });
 
@@ -56,5 +59,39 @@ export const ExploreSearch = styled("div", {
 
   "&::placeholder": {
     color: "$gray-400",
+  },
+});
+
+export const ExploreCategories = styled("ul", {
+  display: "flex",
+  alignItems: "center",
+  gap: "$3",
+  flexWrap: "wrap",
+});
+
+export const ExploreCategory = styled("li", {
+  listStyle: "none",
+
+  button: {
+    all: "unset",
+    cursor: "pointer",
+    padding: "$1 $4",
+    color: "$purple-100",
+    fontSize: "$sm",
+    fontWeight: "$regular",
+    border: "1px solid $purple-100",
+    borderRadius: "$full",
+  },
+
+  variants: {
+    isSelected: {
+      true: {
+        button: {
+          backgroundColor: "$purple-200",
+          color: "$gray-100",
+          borderColor: "$purple-200",
+        },
+      },
+    },
   },
 });
