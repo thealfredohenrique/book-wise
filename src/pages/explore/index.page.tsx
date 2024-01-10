@@ -20,6 +20,7 @@ interface Book {
   title: string;
   author: string;
   coverURL: string;
+  categories: string[];
   rate: number;
 }
 
@@ -34,13 +35,15 @@ interface ExploreProps {
 }
 
 const Explore: NextPageWithLayout<ExploreProps> = ({ books, categories }) => {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null,
-  );
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  function handleChangeSelectedCategory(value: Category | null) {
+  function handleChangeSelectedCategory(value: string | null) {
     setSelectedCategory(value);
   }
+
+  const filteredBooks = selectedCategory
+    ? books.filter((book) => book.categories.includes(selectedCategory))
+    : books;
 
   return (
     <ExploreWrapper>
@@ -66,9 +69,9 @@ const Explore: NextPageWithLayout<ExploreProps> = ({ books, categories }) => {
         {categories.map((category) => (
           <ExploreCategory
             key={category.id}
-            isSelected={category.id === selectedCategory?.id}
+            isSelected={category.id === selectedCategory}
           >
-            <button onClick={() => handleChangeSelectedCategory(category)}>
+            <button onClick={() => handleChangeSelectedCategory(category.id)}>
               {category.name}
             </button>
           </ExploreCategory>
@@ -76,7 +79,7 @@ const Explore: NextPageWithLayout<ExploreProps> = ({ books, categories }) => {
       </ExploreCategories>
 
       <ExploreBooks>
-        {books.map((book) => (
+        {filteredBooks.map((book) => (
           <BookCard key={book.id} {...book} size="lg" />
         ))}
       </ExploreBooks>
