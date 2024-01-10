@@ -95,3 +95,9 @@ export const ExploreCategory = styled("li", {
     },
   },
 });
+
+export const ExploreBooks = styled("main", {
+  display: "grid",
+  gridTemplateColumns: "repeat(3, 1fr)",
+  gap: "$5",
+});

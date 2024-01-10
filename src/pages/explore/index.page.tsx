@@ -3,8 +3,10 @@ import { GetServerSideProps } from "next";
 import { Binoculars, MagnifyingGlass } from "@phosphor-icons/react";
 import { NextPageWithLayout } from "../_app.page";
 import { api } from "@/lib/axios";
+import BookCard from "@/components/BookCard";
 import Layout from "@/components/Layout";
 import {
+  ExploreBooks,
   ExploreCategories,
   ExploreCategory,
   ExploreHeader,
@@ -13,16 +15,25 @@ import {
   ExploreWrapper,
 } from "./styles";
 
+interface Book {
+  id: string;
+  title: string;
+  author: string;
+  coverURL: string;
+  rate: number;
+}
+
 interface Category {
   id: string;
   name: string;
 }
 
 interface ExploreProps {
+  books: Book[];
   categories: Category[];
 }
 
-const Explore: NextPageWithLayout<ExploreProps> = ({ categories }) => {
+const Explore: NextPageWithLayout<ExploreProps> = ({ books, categories }) => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null,
   );
@@ -40,7 +51,7 @@ const Explore: NextPageWithLayout<ExploreProps> = ({ categories }) => {
         </ExploreTitle>
 
         <ExploreSearch>
-          <input type="text" placeholder="Buscar livro ou autor" />
+          <input type="search" placeholder="Buscar livro ou autor" />
           <MagnifyingGlass size={20} />
         </ExploreSearch>
       </ExploreHeader>
@@ -63,6 +74,12 @@ const Explore: NextPageWithLayout<ExploreProps> = ({ categories }) => {
           </ExploreCategory>
         ))}
       </ExploreCategories>
+
+      <ExploreBooks>
+        {books.map((book) => (
+          <BookCard key={book.id} {...book} size="lg" />
+        ))}
+      </ExploreBooks>
     </ExploreWrapper>
   );
 };
@@ -72,10 +89,14 @@ Explore.getLayout = function getLayout(page: ReactElement) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const categories = await api.get("/categories");
+  const [books, categories] = await Promise.all([
+    api.get("/books"),
+    api.get("/categories"),
+  ]);
 
   return {
     props: {
+      books: books.data,
       categories: categories.data,
     },
   };

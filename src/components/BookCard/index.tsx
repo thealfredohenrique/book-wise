@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { Star } from "@phosphor-icons/react";
 import {
+  BookCardCover,
   BookCardDetails,
   BookCardRating,
   BookCardTitle,
@@ -12,6 +12,7 @@ interface BookCardProps {
   author: string;
   coverURL: string;
   rate: number;
+  size: "md" | "lg";
 }
 
 export default function BookCard({
@@ -19,10 +20,17 @@ export default function BookCard({
   author,
   coverURL,
   rate,
+  size,
 }: BookCardProps) {
   return (
     <BookCardWrapper>
-      <Image src={coverURL} alt="Book cover picture" height={94} width={64} />
+      <BookCardCover
+        src={coverURL}
+        alt="Foto da capa do livro"
+        height={152}
+        width={108}
+        size={size}
+      />
 
       <BookCardDetails>
         <BookCardTitle>

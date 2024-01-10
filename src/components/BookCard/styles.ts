@@ -1,15 +1,28 @@
+import Image from "next/image";
 import { styled } from "@/lib/stitches";
 
 export const BookCardWrapper = styled("article", {
   display: "flex",
-  alignItems: "center",
   gap: "$5",
   padding: "$4 $5",
   backgroundColor: "$gray-700",
   borderRadius: "$md",
+});
 
-  img: {
-    borderRadius: "$xs",
+export const BookCardCover = styled(Image, {
+  borderRadius: "$xs",
+
+  variants: {
+    size: {
+      md: {
+        height: 94,
+        width: 64,
+      },
+      lg: {
+        height: 152,
+        width: 108,
+      },
+    },
   },
 });
 
@@ -29,6 +42,11 @@ export const BookCardTitle = styled("div", {
     fontSize: "$sm",
     fontWeight: "$bold",
     lineHeight: "$short",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    "-webkit-line-clamp": 2,
+    "-webkit-box-orient": "vertical",
   },
 
   span: {

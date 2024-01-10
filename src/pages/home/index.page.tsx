@@ -4,9 +4,9 @@ import Link from "next/link";
 import { CaretRight, ChartLineUp } from "@phosphor-icons/react";
 import type { NextPageWithLayout } from "../_app.page";
 import { api } from "@/lib/axios";
+import BookCard from "@/components/BookCard";
 import Layout from "@/components/Layout";
 import Article from "./components/Article";
-import BookCard from "./components/BookCard";
 import {
   HomeAside,
   HomeAsideHeader,
@@ -77,13 +77,7 @@ const Home: NextPageWithLayout<HomeProps> = ({ ratings, mostPopularBooks }) => {
         </HomeAsideHeader>
 
         {mostPopularBooks.map((book) => (
-          <BookCard
-            key={book.id}
-            title={book.title}
-            author={book.author}
-            coverURL={book.coverURL}
-            rate={book.rate}
-          />
+          <BookCard key={book.id} {...book} size="md" />
         ))}
       </HomeAside>
     </HomeWrapper>
